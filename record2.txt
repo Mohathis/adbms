@@ -1,0 +1,464 @@
+
+
+mysql> insert into employee1(emp_id,name,city,dob,adhr_no)values(101,'james','calicut','2000-06-23',35524),(102,'ram','kochi','2001-02-12',78249),(103,'anu','tvm','2003-03-15',66545);
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee1;
++--------+-------+---------+------------+---------+
+| emp_id | name  | city    | dob        | adhr_no |
++--------+-------+---------+------------+---------+
+|    101 | james | calicut | 2000-06-23 |   35524 |
+|    102 | ram   | kochi   | 2001-02-12 |   78249 |
+|    103 | anu   | tvm     | 2003-03-15 |   66545 |
++--------+-------+---------+------------+---------+
+3 rows in set (0.00 sec)
+
+
+
+
+
+mysql> insert into student(roll_no,name,age,gender)values(1,'james',22,'m'),(2,'anu',22,'f'),(3,'Johnson',23,'m');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
++---------+---------+------+--------+
+| roll_no | name    | age  | gender |
++---------+---------+------+--------+
+|       1 | james   |   22 | m      |
+|       2 | anu     |   22 | f      |
+|       3 | Johnson |   23 | m      |
++---------+---------+------+--------+
+3 rows in set (0.00 sec)
+
+
+
+
+mysql> use INVOICE;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_INVOICE |
++-------------------+
+| customer          |
+| invoice_item      |
+| invoice_master    |
+| product           |
++-------------------+
+4 rows in set (0.00 sec)
+
+mysql> desc customer;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| cust_id   | int         | NO   | PRI | NULL    |       |
+| cust_name | varchar(20) | YES  |     | NULL    |       |
+| address   | varchar(50) | YES  |     | NULL    |       |
+| city      | varchar(20) | YES  |     | NULL    |       |
+| ph_no     | varchar(15) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+mysql> INSERT INTO customer VALUES (101, 'Mohathis', 'Kv home', 'Edappal', 9764358735),(102, 'Karuna', 'malayalpuza', 'pta', 8673579935),(103, 'umar', 'amavayal', 'sulthan Bathery', 9758367352),(104, 'abin', 'pozhamudi', 'kalpetta', 8228628649),(105, 'anu', 'karulai', 'nilambur', 8572675725),(106, 'ihsan', 'manasswery', 'calicut', 9762824242),(107, 'james', 'kattakada', 'tvm', 87858725442);
+Query OK, 1 row affected (0.00 sec)
+
+
+mysql> select * from customer;
++---------+-----------+-------------+-----------------+-------------+
+| cust_id | cust_name | address     | city            | ph_no       |
++---------+-----------+-------------+-----------------+-------------+
+|     101 | Mohathis  | Kv home     | Edappal         | 9764358735  |
+|     102 | Karuna    | malayalpuza | pta             | 8673579935  |
+|     103 | umar      | amavayal    | sulthan Bathery | NULL        |
+|     104 | abin      | pozhamudi   | tvm             | 8228628649  |
+|     105 | anu       | karulai     | nilambur        | 8572675725  |
+|     106 | ihsan     | manasswery  | calicut         | NULL        |
+|     107 | james     | kattakada   | tvm             | 87858725442 |
++---------+-----------+-------------+-----------------+-------------+
+7 rows in set (0.00 sec)
+
+
+mysql> desc product;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| prd_id   | int         | NO   | PRI | NULL    |       |
+| prd_name | varchar(20) | YES  |     | NULL    |       |
+| price    | int         | YES  |     | 0       |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into product values(001,'colgate',20),(002,'tea',20),(003,'soap',50),(004,'speaker',500),(005,'knife',80),(006,'cookie',15),(007,'book',20);
+Query OK, 1 row affected (0.00 sec)
+
+
+mysql> select * from product;
++--------+----------+-------+
+| prd_id | prd_name | price |
++--------+----------+-------+
+|      1 | colgate  |    20 |
+|      2 | tea      |    20 |
+|      3 | soap     |    50 |
+|      4 | speaker  |   500 |
+|      5 | knife    |    80 |
+|      6 | cookie   |    15 |
+|      7 | book     |    20 |
++--------+----------+-------+
+7 rows in set (0.00 sec)
+
+
+
+mysql> insert into invoice_master values(1,101,'2025-01-23'),(2,103,'2025-03-06'),(3,105,'2025-03-15'),(4,102,'2025-04-24'),(5,105,'2025-05-17'),(6,101,'2025-07-27'),(7,104,'2025-08-13'),(8,106,'2025-08-28'),(9,107,'2025-10-20'),(10,104,'2025-11-08'),(11,105,'2025-11-24'),(12,104,'2025-12-04'),(13,101,'2025-12-17');
+Query OK, 1 row affected (0.01 sec)
+
+
+mysql> select * from invoice_master;
++-------+---------+------------+
+| iv_id | cust_id | inv_date   |
++-------+---------+------------+
+|     1 |     101 | 2025-01-23 |
+|     2 |     103 | 2025-03-06 |
+|     3 |     105 | 2025-03-15 |
+|     4 |     102 | 2025-04-24 |
+|     5 |     105 | 2025-05-17 |
+|     6 |     101 | 2025-07-27 |
+|     7 |     104 | 2025-08-13 |
+|     8 |     106 | 2025-08-28 |
+|     9 |     107 | 2025-10-20 |
+|    10 |     104 | 2025-11-08 |
+|    11 |     105 | 2025-11-24 |
+|    12 |     104 | 2025-12-04 |
+|    13 |     101 | 2025-12-17 |
++-------+---------+------------+
+13 rows in set (0.00 sec)
+
+mysql> desc invoice_item;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+---------+-------+
+| iv_id    | int  | YES  | MUL | NULL    |       |
+| prd_id   | int  | YES  | MUL | NULL    |       |
+| quantity | int  | YES  |     | NULL    |       |
++----------+------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> insert into invoice_item values(1,1,2),(2,2,1),(3,6,3),(4,3,4),(5,7,1),(6,1,2),(7,3,1),(8,7,2),(9,1,5),(10,3,2),(11,4,1),(12,4,2),(13,6,5;
+Query OK, 1 row affected (0.01 sec)
+
+
+
+mysql> select * from invoice_item;
++-------+--------+----------+
+| iv_id | prd_id | quantity |
++-------+--------+----------+
+|     1 |      1 |        2 |
+|     2 |      2 |        1 |
+|     3 |      6 |        3 |
+|     4 |      3 |        4 |
+|     5 |      7 |        1 |
+|     6 |      1 |        2 |
+|     7 |      3 |        1 |
+|     8 |      7 |        2 |
+|     9 |      1 |        5 |
+|    10 |      3 |        2 |
+|    11 |      4 |        1 |
+|    12 |      4 |        2 |
+|    13 |      6 |        5 |
++-------+--------+----------+
+13 rows in set (0.01 sec)
+
+mysql> 
+
+
+
+UPDATE
+
+1. Update the price of a particular product.
+
+
+mysql> update product set price = 700 where prd_id=4;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from product;
++--------+----------+-------+
+| prd_id | prd_name | price |
++--------+----------+-------+
+|      1 | colgate  |    20 |
+|      2 | tea      |    20 |
+|      3 | soap     |    50 |
+|      4 | speaker  |   700 |
+|      5 | knife    |    80 |
+|      6 | cookie   |    15 |
+|      7 | book     |    20 |
++--------+----------+-------+
+7 rows in set (0.00 sec)
+
+
+2. Change the name of city ‘calicut’ to ‘kozhikode’ in the customer table.
+
+
+mysql> update customer set city = 'kozhikode' where cust_id=106;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customer;
++---------+-----------+-------------+-----------------+-------------+
+| cust_id | cust_name | address     | city            | ph_no       |
++---------+-----------+-------------+-----------------+-------------+
+|     101 | Mohathis  | Kv home     | Edappal         | 9764358735  |
+|     102 | Karuna    | malayalpuza | pta             | 8673579935  |
+|     103 | umar      | amavayal    | sulthan Bathery | NULL        |
+|     104 | abin      | pozhamudi   | tvm             | 8228628649  |
+|     105 | anu       | karulai     | nilambur        | 8572675725  |
+|     106 | ihsan     | manasswery  | kozhikode       | NULL        |
+|     107 | james     | kattakada   | tvm             | 87858725442 |
++---------+-----------+-------------+-----------------+-------------+
+7 rows in set (0.00 sec)
+
+
+3. Update all prices with 2% of its original price.
+
+mysql> update product set price = price * 1.02;
+Query OK, 3 rows affected (0.00 sec)
+Rows matched: 7  Changed: 3  Warnings: 0
+
+mysql> select * from product;
++--------+----------+-------+
+| prd_id | prd_name | price |
++--------+----------+-------+
+|      1 | colgate  |    20 |
+|      2 | tea      |    20 |
+|      3 | soap     |    51 |
+|      4 | speaker  |   714 |
+|      5 | knife    |    82 |
+|      6 | cookie   |    15 |
+|      7 | book     |    20 |
++--------+----------+-------+
+7 rows in set (0.00 sec)
+
+
+4. Change the address, city, phone number of a particular customer.
+
+mysql> update customer set address ='aluva', city='kochi',ph_no=6743758338 where cust_id=107;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customer;
++---------+-----------+-------------+-----------------+------------+
+| cust_id | cust_name | address     | city            | ph_no      |
++---------+-----------+-------------+-----------------+------------+
+|     101 | Mohathis  | Kv home     | Edappal         | 9764358735 |
+|     102 | Karuna    | malayalpuza | pta             | 8673579935 |
+|     103 | umar      | amavayal    | sulthan Bathery | NULL       |
+|     104 | abin      | pozhamudi   | tvm             | 8228628649 |
+|     105 | anu       | karulai     | nilambur        | 8572675725 |
+|     106 | ihsan     | manasswery  | kozhikode       | NULL       |
+|     107 | james     | aluva       | kochi           | 6743758338 |
++---------+-----------+-------------+-----------------+------------+
+7 rows in set (0.01 sec)
+
+
+5. Change the quantity of a purchased product of inv_id ‘101’
+
+mysql> update invoice_item set quantity=4 where iv_id=1;
+Query OK, 3 rows affected (0.00 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from invoice_item;
++-------+--------+----------+
+| iv_id | prd_id | quantity |
++-------+--------+----------+
+|     1 |      1 |        4 |
+|     2 |      2 |        1 |
+|     3 |      6 |        3 |
+|     4 |      3 |        4 |
+|     5 |      7 |        1 |
+|     6 |      1 |        2 |
+|     7 |      3 |        1 |
+|     8 |      7 |        2 |
+|     9 |      1 |        5 |
+|    10 |      3 |        2 |
+|    11 |      4 |        1 |
+|    12 |      4 |        2 |
+|    13 |      6 |        5 |
+|     1 |      2 |        4 |
+|     7 |      7 |        2 |
+|     6 |      3 |        4 |
+|     1 |      6 |        4 |
+|     6 |      2 |        3 |
++-------+--------+----------+
+18 rows in set (0.00 sec)
+
+
+
+DELETE
+
+1. Delete the record of customer id ‘10001’.
+
+mysql> delete from invoice_item where iv_id in (select iv_id from invoice_master where cust_id = 101);
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from invoice_item;
++-------+--------+----------+
+| iv_id | prd_id | quantity |
++-------+--------+----------+
+|     2 |      2 |        1 |
+|     3 |      6 |        3 |
+|     4 |      3 |        4 |
+|     5 |      7 |        1 |
+|     7 |      3 |        1 |
+|     8 |      7 |        2 |
+|     9 |      1 |        5 |
+|    10 |      3 |        2 |
+|    11 |      4 |        1 |
+|    12 |      4 |        2 |
+|     7 |      7 |        2 |
++-------+--------+----------+
+11 rows in set (0.00 sec)
+
+
+2.delete all purchase details of items its quandity less than 2
+
+mysql> delete from invoice_item where quantity < 2;
+Query OK, 4 rows affected (0.01 sec)
+mysql> select * from invoice_item;
++-------+--------+----------+
+| iv_id | prd_id | quantity |
++-------+--------+----------+
+|     3 |      6 |        3 |
+|     4 |      3 |        4 |
+|     8 |      7 |        2 |
+|     9 |      1 |        5 |
+|    10 |      3 |        2 |
+|    12 |      4 |        2 |
+|     7 |      7 |        2 |
++-------+--------+----------+
+7 rows in set (0.00 sec)
+
+
+3.delete the purchase details of product 'pen' in the in_id'101'.
+
+mysql> delete from invoice_item where iv_id=4 and prd_id=(select prd_id from product where prd_name='soap');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from invoice_item;
++-------+--------+----------+
+| iv_id | prd_id | quantity |
++-------+--------+----------+
+|     3 |      6 |        3 |
+|     8 |      7 |        2 |
+|     9 |      1 |        5 |
+|    10 |      3 |        2 |
+|    12 |      4 |        2 |
+|     7 |      7 |        2 |
++-------+--------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select * from product;
++--------+----------+-------+
+| prd_id | prd_name | price |
++--------+----------+-------+
+|      1 | colgate  |    20 |
+|      2 | tea      |    20 |
+|      3 | soap     |    51 |
+|      4 | speaker  |   714 |
+|      5 | knife    |    82 |
+|      6 | cookie   |    15 |
+|      7 | book     |    20 |
++--------+----------+-------+
+7 rows in set (0.00 sec)
+
+
+
+
+
+ 4. Delete details of customer who does not have phone number. 
+ 
+ 
+ mysql> delete from invoice_item where iv_id in(select iv_id from invoice_master
+where cust_id in (select cust_id from customer where ph_no is null));
+Query OK, 1 row affected (0.01 sec)
+
+mysql> delete from invoice_master where cust_id in(select cust_id from customer
+where ph_no is null);
+Query OK, 2 rows affected (0.00 sec)
+
+mysql> delete from customer where ph_no is null;
+Query OK, 2 rows affected (0.00 sec)
+
+mysql> select * from customer;
++---------+-----------+-------------+----------+------------+
+| cust_id | cust_name | address     | city     | ph_no      |
++---------+-----------+-------------+----------+------------+
+|     102 | Karuna    | malayalpuza | pta      | 8673579935 |
+|     104 | abin      | pozhamudi   | tvm      | 8228628649 |
+|     105 | anu       | karulai     | nilambur | 8572675725 |
+|     107 | james     | aluva       | kochi    | 6743758338 |
++---------+-----------+-------------+----------+------------+
+4 rows in set (0.00 sec)
+
+
+
+
+ 5. Delete all records from STUDENT table. 
+ 
+ mysql> delete from student;
+Query OK, 3 rows affected (0.00 sec)
+
+
+
+
+ 6. Delete Invoice details of a particular customer "XYZ".
+ mysql> delete from invoice_master where cust_id=(select cust_id from customer where cust_name='james');
+Query OK, 1 row affected (0.00 sec)
+
+
+mysql> select * from invoice_item;
++-------+--------+----------+
+| iv_id | prd_id | quantity |
++-------+--------+----------+
+|     3 |      6 |        3 |
+|    10 |      3 |        2 |
+|    12 |      4 |        2 |
+|     7 |      7 |        2 |
++-------+--------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from invoice_master;
++-------+---------+------------+
+| iv_id | cust_id | inv_date   |
++-------+---------+------------+
+|     3 |     105 | 2025-03-15 |
+|     4 |     102 | 2025-04-24 |
+|     5 |     105 | 2025-05-17 |
+|     7 |     104 | 2025-08-13 |
+|    10 |     104 | 2025-11-08 |
+|    11 |     105 | 2025-11-24 |
+|    12 |     104 | 2025-12-04 |
++-------+---------+------------+
+7 rows in set (0.00 sec)
+
+ 
+ 
+ 7. Delete the first two records of INVOICE_ITEM table its purchase quantity is high.
+
+mysql> delete from invoice_item limit 2;
+Query OK, 2 rows affected (0.00 sec)
+
+mysql> select * from invoice_item;
++-------+--------+----------+
+| iv_id | prd_id | quantity |
++-------+--------+----------+
+|    12 |      4 |        2 |
+|     7 |      7 |        2 |
++-------+--------+----------+
+2 rows in set (0.00 sec)
+
+
+
