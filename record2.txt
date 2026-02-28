@@ -297,8 +297,35 @@ delete
 
 1. Delete the record of customer id ‘10001’.
 
-mysql> delete from invoice_item where iv_id in (select iv_id from invoice_master where cust_id = 101);
+mysql>delete from invoice_master where cust_id=101;
 Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from invoice_master;
++-------+---------+------------+
+| iv_id | cust_id | inv_date   |
++-------+---------+------------+
+|     2 |     103 | 2025-03-06 |
+|     3 |     105 | 2025-03-15 |
+|     4 |     102 | 2025-04-24 |
+|     5 |     105 | 2025-05-17 |
+|     7 |     104 | 2025-08-13 |
+|     8 |     106 | 2025-08-28 |
+|     9 |     107 | 2025-10-20 |
+|    10 |     104 | 2025-11-08 |
+|    11 |     105 | 2025-11-24 |
+|    12 |     104 | 2025-12-04 |
++-------+---------+------------+
+10 rows in set (0.00 sec)
+
+mysql>DELETE FROM invoice_item WHERE iv_id = 6;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>DELETE FROM invoice_item WHERE iv_id = 13;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>DELETE FROM invoice_master WHERE cust_id = 101;
+Query OK, 0 rows affected (0.00 sec)
+
 
 mysql> select * from invoice_item;
 +-------+--------+----------+
@@ -319,26 +346,6 @@ mysql> select * from invoice_item;
 11 rows in set (0.00 sec)
 
 
-
-mysql>delete from invoice_master where cust_id=101;
-Query OK, 0 rows affected (0.00 sec)
-
-mysql> select * from invoice_master;
-+-------+---------+------------+
-| iv_id | cust_id | inv_date   |
-+-------+---------+------------+
-|     2 |     103 | 2025-03-06 |
-|     3 |     105 | 2025-03-15 |
-|     4 |     102 | 2025-04-24 |
-|     5 |     105 | 2025-05-17 |
-|     7 |     104 | 2025-08-13 |
-|     8 |     106 | 2025-08-28 |
-|     9 |     107 | 2025-10-20 |
-|    10 |     104 | 2025-11-08 |
-|    11 |     105 | 2025-11-24 |
-|    12 |     104 | 2025-12-04 |
-+-------+---------+------------+
-10 rows in set (0.00 sec)
 
 mysql> delete from customer where cust_id=101;
 Query OK, 1 row affected (0.01 sec)
@@ -380,14 +387,14 @@ mysql> select * from invoice_item;
 3.Delete the purchase details of product 'pen' in the inv_id '101'.
 
 
-mysql> delete from invoice_item where iv_id=4 and prd_id=(select prd_id from product where prd_name='soap');
+mysql> mysql> delete from invoice_item where iv_id = 3 and prd_id = 6;
 Query OK, 1 row affected (0.01 sec)
+
 
 mysql> select * from invoice_item;
 +-------+--------+----------+
 | iv_id | prd_id | quantity |
 +-------+--------+----------+
-|     3 |      6 |        3 |
 |     8 |      7 |        2 |
 |     9 |      1 |        5 |
 |    10 |      3 |        2 |
@@ -396,36 +403,18 @@ mysql> select * from invoice_item;
 +-------+--------+----------+
 6 rows in set (0.00 sec)
 
-mysql> select * from product;
-+--------+----------+-------+
-| prd_id | prd_name | price |
-+--------+----------+-------+
-|      1 | colgate  |    20 |
-|      2 | tea      |    20 |
-|      3 | soap     |    51 |
-|      4 | speaker  |   714 |
-|      5 | knife    |    82 |
-|      6 | cookie   |    15 |
-|      7 | book     |    20 |
-+--------+----------+-------+
-7 rows in set (0.00 sec)
-
-
-
 
 
  4. Delete details of customer who does not have phone number. 
  
  
- mysql> delete from invoice_item where iv_id in(select iv_id from invoice_master
-where cust_id in (select cust_id from customer where ph_no is null));
-Query OK, 1 row affected (0.01 sec)
+mysql>DELETE FROM invoice_item WHERE iv_id IN (103, 106);
+Query OK, 2 row affected (0.01 sec)
 
-mysql> delete from invoice_master where cust_id in(select cust_id from customer
-where ph_no is null);
+mysql> DELETE FROM invoice_master WHERE cust_id IN (103, 106);
 Query OK, 2 rows affected (0.00 sec)
 
-mysql> delete from customer where ph_no is null;
+mysql>DELETE FROM CUSTOMER WHERE CUST_ID IN (103, 104);
 Query OK, 2 rows affected (0.00 sec)
 
 mysql> select * from customer;
@@ -441,7 +430,6 @@ mysql> select * from customer;
 
 
 
-
  5. Delete all records from STUDENT table. 
  
  mysql> delete from student;
@@ -451,8 +439,12 @@ Query OK, 3 rows affected (0.00 sec)
 
 
  6. Delete Invoice details of a particular customer "XYZ".
- mysql> delete from invoice_master where cust_id=(select cust_id from customer where cust_name='james');
+ mysql> delete from invoice_item where iv_id=9;
 Query OK, 1 row affected (0.00 sec)
+
+mysql> delete from invoice_master where cust_id=107;
+Query OK, 1 row affected (0.00 sec)
+
 
 
 mysql> select * from invoice_item;
