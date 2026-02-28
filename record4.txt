@@ -1,0 +1,79 @@
+1. List all invoice items, avoid duplicates.    
+
+mysql> select * from invoice_item;
++-------+--------+----------+
+| iv_id | prd_id | quantity |
++-------+--------+----------+
+|    12 |      4 |        2 |
+|     7 |      7 |        2 |
+|     7 |      4 |        6 |
++-------+--------+----------+
+3 rows in set (0.00 sec)
+
+mysql> insert into invoice_item values(7,3,3);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select distinct iv_id from invoice_item;
++-------+
+| iv_id |
++-------+
+|     7 |
+|    12 |
++-------+
+
+
+2. List the customer details who not live in ‘tvm’.
+
+mysql> select * from customer;
++---------+-----------+--------------+----------+------------+
+| cust_id | cust_name | address      | city     | ph_no      |
++---------+-----------+--------------+----------+------------+
+|     102 | Karuna    | malayalpuza  | pta      | 8673579935 |
+|     104 | abin      | pozhamudi    | tvm      | 8228628649 |
+|     105 | anu       | karulai      | nilambur | 8572675725 |
+|     107 | james     | aluva        | kochi    | 6743758338 |
+|     108 | nick      | atlantic_inn | kannur   | 8736883355 |
++---------+-----------+--------------+----------+------------+
+5 rows in set (0.00 sec)
+
+
+2 rows in set (0.00 sec)
+mysql> select * from customer where city !='tvm';
++---------+-----------+-------------+----------+------------+
+| cust_id | cust_name | address     | city     | ph_no      |
++---------+-----------+-------------+----------+------------+
+|     102 | Karuna    | malayalpuza | pta      | 8673579935 |
+|     105 | anu       | karulai     | nilambur | 8572675725 |
+|     107 | james     | aluva       | kochi    | 6743758338 |
+|     108 | nick      | atlantic inn| kannur   | 8736883355 |
++---------+-----------+-------------+----------+------------+
+3 rows in set (0.00 sec)
+
+3. Display the customer details sorted in ascending by city and descending by names.
+
+mysql> select city,cust_name from customer order by city asc,cust_name desc;
++----------+-----------+
+| city     | cust_name |
++----------+-----------+
+| kannur   | nick      |
+| kochi    | james     |
+| nilambur | anu       |
+| pta      | Karuna    |
+| tvm      | abin      |
++----------+-----------+
+5 rows in set (0.00 sec)
+
+
+4. Find the customer names who have ‘e’ or ‘a’ in them and at least 3 characters in length.
+
+mysql> select cust_name from customer where cust_name like '%e%' or cust_name like '%a%' and cust_name like '___%';
++-----------+
+| cust_name |
++-----------+
+| Karuna    |
+| abin      |
+| anu       |
+| james     |
++-----------+
+4 rows in set (0.00 sec)
+
