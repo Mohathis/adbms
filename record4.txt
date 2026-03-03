@@ -26,7 +26,7 @@ mysql> select * from customer;
 +---------+-----------+--------------+----------+------------+
 | cust_id | cust_name | address      | city     | ph_no      |
 +---------+-----------+--------------+----------+------------+
-|     102 | Karuna    | ranni        | pta      | 8673579935 |
+|     102 | Karuna    | ranni	     | pta      | 8673579935 |
 |     104 | abin      | pozhamudi    | tvm      | 8228628649 |
 |     105 | anu       | nilambur     | malprm   | 8572675725 |
 |     107 | james     | aluva        | kochi    | 6743758338 |
@@ -40,7 +40,7 @@ mysql> select * from customer where city !='tvm';
 +---------+-----------+-------------+----------+------------+
 | cust_id | cust_name | address     | city     | ph_no      |
 +---------+-----------+-------------+----------+------------+
-|     102 | Karuna    | ranni       | pta      | 8673579935 |
+|     102 | Karuna    | ranni	    | pta      | 8673579935 |
 |     105 | anu       | nilambur    | malprm   | 8572675725 |
 |     107 | james     | aluva       | kochi    | 6743758338 |
 |     108 | nick      | atlantic inn| kannur   | 8736883355 |
