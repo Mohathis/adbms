@@ -1,0 +1,50 @@
+	
+RECORD PROGRAM 7-OPTIMIZING DATABASE: (JOINS)
+1. List the product name and quantity of invoice items. 
+
+mysql> select product.prd_name, invoice_item.quantity from product inner join invoice_item on product.prd_id=invoice_item.prd_id;
++----------+----------+
+| prd_name | quantity |
++----------+----------+
+| speaker  |        2 |
+| book     |        2 |
+| speaker  |        6 |
++----------+----------+
+3 rows in set (0.00 sec)
+
+
+
+2.. Display the customer name, product name, invoice date of purchased item ‘pen’. 
+
+
+mysql>  SELECT customer.cust_name, product.prd_name, invoice_master.inv_date FROM customer JOIN invoice_master ON customer.cust_id=invoice_master.cust_id JOIN invoice_item  ON invoice_master.iv_id=invoice_item.iv_id JOIN product ON invoice_item.prd_id=product.prd_id WHERE product.prd_name='speaker';
++-----------+----------+------------+
+| cust_name | prd_name | inv_date   |
++-----------+----------+------------+
+| abin      | speaker  | 2025-12-04 |
+| abin      | speaker  | 2025-08-13 |
++-----------+----------+------------+
+2 rows in set (0.00 sec)
+
+
+3. Display all customer details and invoice details must include customer has not
+purchased items.
+
+mysql> select customer.cust_name,customer.cust_id,invoice_master.iv_id from customer left outer join invoice_master on customer.cust_id=invoice_master.cust_id;
++-----------+---------+-------+
+| cust_name | cust_id | iv_id |
++-----------+---------+-------+
+| Karuna    |     102 |     4 |
+| abin      |     104 |     7 |
+| abin      |     104 |    10 |
+| abin      |     104 |    12 |
+| anu       |     105 |     3 |
+| anu       |     105 |     5 |
+| anu       |     105 |    11 |
+| james     |     107 |  NULL |
+| nick      |     108 |  NULL |
+| george    |     109 |  NULL |
+| tom       |     110 |  NULL |
++-----------+---------+-------+
+11 rows in set (0.01 sec)
+
