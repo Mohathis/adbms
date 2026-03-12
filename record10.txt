@@ -1,0 +1,47 @@
+
+ 
+
+mysql> create procedure grt3(a int,b int,c int)
+    -> begin
+    -> declare x,y,z int;
+    -> set x=a;
+    -> set y=b;
+    -> set z=c;
+    -> if x>y and x>z then 
+    -> select x as 'greater';
+    -> elseif y>x and y>z then
+    -> select y as 'greater';
+    -> else
+    -> select z as 'greater';
+    -> end if;
+    -> end $$
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call grt3(3,6,9)$$
++---------+
+| greater |
++---------+
+|       9 |
++---------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+
+2. Create a procedure to display invoice details of a particular customer.
+
+mysql> create procedure invoice_datail(in c_id int) begin select customer.cust_id,customer.cust_name, invoice_master.iv_id, invoice_master.inv_date,product.prd_name, invoice_item.quantity from customer join invoice_master on customer.cust_id = invoice_master.cust_id join invoice_item  on invoice_master.iv_id = invoice_item.iv_id join product on invoice_item.prd_id=product.prd_id where customer.cust_id=c_id; end$$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call invoice_datail(104)$$
++---------+-----------+-------+------------+----------+----------+
+| cust_id | cust_name | iv_id | inv_date   | prd_name | quantity |
++---------+-----------+-------+------------+----------+----------+
+|     104 | abin      |     7 | 2025-08-13 | book     |        2 |
+|     104 | abin      |     7 | 2025-08-13 | speaker  |        6 |
+|     104 | abin      |    12 | 2025-12-04 | speaker  |        2 |
++---------+-----------+-------+------------+----------+----------+
+3 rows in set (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
