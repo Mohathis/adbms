@@ -1,0 +1,27 @@
+
+
+create a trigger to handle inserts to the product relation (if price < 5 the set price to 10). 
+
+mysql> create trigger check_product_price before insert on product for each row begin  if new.price < 5 then set new.price=10; end if; end$$
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> DELIMITER ;
+mysql> insert into product values(8,'rog',3);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from product;
+    -> $$
++--------+----------+-------+
+| prd_id | prd_name | price |
++--------+----------+-------+
+|      1 | colgate  |    20 |
+|      2 | tea      |    20 |
+|      3 | soap     |    51 |
+|      4 | speaker  |   714 |
+|      5 | knife    |    82 |
+|      6 | cookie   |    15 |
+|      7 | book     |    20 |
+|      8 | rog      |    10 |
++--------+----------+-------+
+8 rows in set (0.00 sec)
+
