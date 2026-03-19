@@ -1,0 +1,150 @@
+	
+RECORD PROGRAM 16- AGGREGATE FUNCTIONS AND REGULAR EXPRESSIONS
+1. Write a MongoDB query to sort customer details in ascending order of their name. 
+
+invoice> db.customer.find().sort({c_name:1})
+[
+  {
+    _id: ObjectId('69b7ac02bacd4d22a08563c4'),
+    c_name: 'John',
+    city: 'tvm'
+  },
+  {
+    _id: ObjectId('69b7ac16bacd4d22a08563c8'),
+    c_name: 'gwen',
+    city: 'tvm'
+  },
+  {
+    _id: ObjectId('69b7ac0dbacd4d22a08563c6'),
+    c_name: 'peter',
+    city: 'clt'
+  },
+  {
+    _id: ObjectId('69b7ac11bacd4d22a08563c7'),
+    c_name: 'stacy',
+    city: 'ekm'
+  }
+]
+
+
+
+ 2. Write a MongoDB query to count number of customers in each city. 
+ 
+ invoice> db.customer.aggregate([{$group: {_id: "$city",total:{$sum:1}}}])
+[
+  { _id: 'clt', total: 1 },
+  { _id: 'tvm', total: 2 },
+  { _id: 'ekm', total: 1 }
+]
+
+ 
+ 
+ 3. Write a MongoDB query to find minimum and maximum age in each city. 
+ 
+ invoice> db.product.find()
+[
+  { _id: ObjectId('69b8ec0ef49b8116408563b1'), p_name: 'pen', price: 10 },
+  {
+    _id: ObjectId('69b8ec1ef49b8116408563b2'),
+    p_name: 'soap',
+    price: 25
+  },
+  {
+    _id: ObjectId('69b8ec33f49b8116408563b3'),
+    p_name: 'book',
+    price: 40
+  },
+  { _id: ObjectId('69b8ec3ff49b8116408563b4'), p_name: 'bag', price: 80 },
+  {
+    _id: ObjectId('69b8eca9f49b8116408563b6'),
+    p_name: 'chair',
+    price: 150
+  },
+  
+  { _id: ObjectId('69b8f761f49b8116408563b8'), p_name: 'pen', price: 15 }
+]
+
+ invoice> db.product.aggregate([{$group: {_id: "$p_name",max_price:{$max:"$price"},min_price:{$min:"$price"}}}])
+[
+  { _id: 'pen', max_price: 15, min_price: 10 },
+  { _id: 'chair', max_price: 150, min_price: 150 },
+  { _id: 'book', max_price: 40, min_price: 40 },
+  { _id: 'soap', max_price: 25, min_price: 25 },
+  { _id: 'bag', max_price: 80, min_price: 80 },
+  { _id: null, max_price: null, min_price: null }
+]
+
+ 
+ 
+ 
+ 4. Write a MongoDB query using the $match stage to retrieve all customer documents whose
+customer_name starts with the letter “S”.
+
+invoice> db.customer.aggregate([{ $match: { c_name: { $regex: "^s" } } }])
+[
+  {
+    _id: ObjectId('69b7ac11bacd4d22a08563c7'),
+    c_name: 'stacy',
+    city: 'ekm'
+  }
+]
+
+
+5. Write a query using $lookup to join CUSTOMER and PRODUCT collections and display only
+customer name, product name, and price.
+
+
+invoice> db.customer.aggregate([
+    {
+     $lookup: {
+        from: "product",
+      localField: "product_id",
+        foreignField: "product_id",
+        as: "product_info"
+      }
+    },
+    {
+      $unwind: "$product_info"
+    },
+    {
+      $project: {
+        _id: 0,
+        name: "$c_name",
+        p_name: "$product_info.p_name",
+        price: "$product_info.price"
+      }
+    }
+  ]);
+[
+  { name: 'John', p_name: 'pen', price: 10 },
+  { name: 'John', p_name: 'soap', price: 25 },
+  { name: 'John', p_name: 'book', price: 40 },
+  { name: 'John', p_name: 'bag', price: 80 },
+  { name: 'John', p_name: 'chair', price: 150 },
+  { name: 'John' },
+  { name: 'John', p_name: 'pen', price: 15 },
+  { name: 'peter', p_name: 'pen', price: 10 },
+  { name: 'peter', p_name: 'soap', price: 25 },
+  { name: 'peter', p_name: 'book', price: 40 },
+  { name: 'peter', p_name: 'bag', price: 80 },
+  { name: 'peter', p_name: 'chair', price: 150 },
+  { name: 'peter' },
+  { name: 'peter', p_name: 'pen', price: 15 },
+  { name: 'stacy', p_name: 'pen', price: 10 },
+  { name: 'stacy', p_name: 'soap', price: 25 },
+  { name: 'stacy', p_name: 'book', price: 40 },
+  { name: 'stacy', p_name: 'bag', price: 80 },
+  { name: 'stacy', p_name: 'chair', price: 150 },
+  { name: 'stacy' }
+
+  { name: 'stacy', p_name: 'pen', price: 15 },
+  { name: 'gwen', p_name: 'pen', price: 10 },
+  { name: 'gwen', p_name: 'soap', price: 25 },
+  { name: 'gwen', p_name: 'book', price: 40 },
+  { name: 'gwen', p_name: 'bag', price: 80 },
+  { name: 'gwen', p_name: 'chair', price: 150 },
+  { name: 'gwen' },
+  { name: 'gwen', p_name: 'pen', price: 15 }
+]
+
+ 
