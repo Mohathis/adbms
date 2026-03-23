@@ -1,0 +1,42 @@
+1. Write a MongoDB query to create a user “CUSTOMER1” and grant the read role in the INVOICE database. 
+
+invoice> db.createUser({ user: "CUSTOMER1", pwd: "pass123",roles:[ { role: "read", db: "invoice"}]})
+{ ok: 1 }
+ 
+ 
+
+ 2. Write a MongoDB query to create the backup for the INVOICE database. 
+ 
+ mongodump --db invoice
+ 2026-03-19T15:14:00.000+0530	writing invoice.product to dump/invoice/product.bson
+2026-03-19T15:14:00.001+0530	writing invoice.customer to dump/invoice/customer.bson
+2026-03-19T15:14:00.001+0530	done dumping invoice.product (7 documents)
+2026-03-19T15:14:00.001+0530	done dumping invoice.customer (4 documents)
+
+ 
+ 
+ 
+ 3. Write a MongoDB query to restore a particular database or a collection. 
+ 
+ mongorestore --db ksb dump/ksb
+ 
+2026-03-23T11:30:50.088+0530	The --db and --collection flags are deprecated for this use-case; please use --nsInclude instead, i.e. with --nsInclude=${DATABASE}.${COLLECTION}
+2026-03-23T11:30:50.089+0530	building a list of collections to restore from dump/ksb dir
+2026-03-23T11:30:50.089+0530	don't know what to do with file "dump/ksb/prelude.json", skipping...
+2026-03-23T11:30:50.089+0530	reading metadata for ksb.customer from dump/ksb/customer.metadata.json
+2026-03-23T11:30:50.089+0530	reading metadata for ksb.MCA from dump/ksb/MCA.metadata.json
+2026-03-23T11:30:50.096+0530	restoring ksb.customer from dump/ksb/customer.bson
+2026-03-23T11:30:50.098+0530	restoring ksb.MCA from dump/ksb/MCA.bson
+2026-03-23T11:30:50.106+0530	finished restoring ksb.customer (4 documents, 0 failures)
+2026-03-23T11:30:50.109+0530	finished restoring ksb.MCA (0 documents, 0 failures)
+2026-03-23T11:30:50.109+0530	no indexes to restore for collection ksb.MCA
+2026-03-23T11:30:50.109+0530	no indexes to restore for collection ksb.customer
+2026-03-23T11:30:50.109+0530	4 document(s) restored successfully. 0 document(s) failed to restore.
+
+
+ 
+ 4. Write a MongoDB query to create an index for the collection customer using the field customer_name.
+
+invoice> db.customer.createIndex({ customer_name: 1 })
+customer_name_1
+
